@@ -9,7 +9,17 @@
                 <img src="{{ url_for('static', filename='uploads/' + court.image_path) }}" class="card-img-top" alt="{{ court.name }}">
                 {% endif %}
                 <div class="card-body">
-                    <h2 class="card-title">{{ court.name }}</h2>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h2 class="card-title">{{ court.name }}</h2>
+                        {% if current_user.is_authenticated and court.created_by == current_user.id %}
+                        <form action="{{ url_for('courts.delete_court', id=court.id) }}" method="post" 
+                              onsubmit="return confirm('정말로 이 경기장을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.');">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> 삭제
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
                     <p class="card-text">
                         <strong>위치:</strong> {{ court.location }}<br>
                         <strong>운영시간:</strong> {{ court.operating_hours }}
