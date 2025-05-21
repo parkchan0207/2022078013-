@@ -19,4 +19,5 @@ if __name__ == '__main__':
     if os.environ.get('FLASK_ENV') == 'development':
         app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=True)
     else:
-        # 프로덕션에서는 gunicorn이 직접 app을 실행 
+        # 프로덕션에서는 gunicorn이 직접 app을 실행
+        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False) 
