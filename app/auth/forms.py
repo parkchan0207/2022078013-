@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('로그인')
 
 class RegistrationForm(FlaskForm):
-    username = StringField('사용자 이름', validators=[DataRequired()])
+    username = StringField('아이디', validators=[DataRequired()])
     email = StringField('이메일', validators=[DataRequired(), Email()])
     password = PasswordField('비밀번호', validators=[DataRequired()])
     password2 = PasswordField(
@@ -20,7 +20,7 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('이미 사용 중인 사용자 이름입니다.')
+            raise ValidationError('이미 사용 중인 아이디입니다.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
