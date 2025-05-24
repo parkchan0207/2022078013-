@@ -111,7 +111,7 @@
                     </div>
                     <div class="info-item py-2">
                         <i class="fas fa-clock text-primary"></i>
-                        <span class="ms-3">{{ court.operating_hours }}</span>
+                        <span class="ms-3">{{ court.opening_time.strftime('%H:%M') }} - {{ court.closing_time.strftime('%H:%M') }}</span>
                     </div>
                     
                     <div class="facility-icons mt-3">
