@@ -24,7 +24,8 @@ def create_court():
         court = Court(
             name=form.name.data,
             location=form.location.data,
-            operating_hours=form.operating_hours.data,
+            opening_time=form.opening_time.data,
+            closing_time=form.closing_time.data,
             wheelchair_rental=form.wheelchair_rental.data,
             wheelchair_ramp=form.wheelchair_ramp.data,
             elevator=form.elevator.data,
@@ -34,7 +35,8 @@ def create_court():
         
         if form.image.data:
             file = form.image.data
-            filename = f"court_{court.id}_{file.filename}"
+            filename = secure_filename(file.filename)
+            filename = f"court_{court.id}_{filename}"
             file.save(os.path.join('app/static/uploads', filename))
             court.image_path = filename
         

@@ -10,14 +10,48 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">경기장 이름</label>
                     {{ form.name(class="form-control") }}
+                    {% if form.name.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="mb-3">
                     <label for="location" class="form-label">위치</label>
                     {{ form.location(class="form-control") }}
+                    {% if form.location.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.location.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="mb-3">
-                    <label for="operating_hours" class="form-label">운영시간</label>
-                    {{ form.operating_hours(class="form-control") }}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="opening_time" class="form-label">운영 시작 시간</label>
+                        {{ form.opening_time(class="form-control", type="time") }}
+                        {% if form.opening_time.errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.opening_time.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="closing_time" class="form-label">운영 종료 시간</label>
+                        {{ form.closing_time(class="form-control", type="time") }}
+                        {% if form.closing_time.errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.closing_time.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <h5>시설 정보</h5>
@@ -41,6 +75,13 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">경기장 사진</label>
                     {{ form.image(class="form-control") }}
+                    {% if form.image.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.image.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <button type="submit" class="btn btn-primary">등록하기</button>
             </form>
