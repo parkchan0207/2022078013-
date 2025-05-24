@@ -32,7 +32,7 @@
                                 </td>
                                 <td>{{ game.date.strftime('%Y-%m-%d') }}</td>
                                 <td>{{ game.start_time.strftime('%H:%M') }} - {{ game.end_time.strftime('%H:%M') }}</td>
-                                <td>{{ game.participants|length }}/{{ game.max_players }}</td>
+                                <td>{{ game.participants.count() }}/{{ game.max_players }}명</td>
                                 <td>
                                     <form action="{{ url_for('games.delete_game', id=game.id) }}" 
                                           method="POST" 
