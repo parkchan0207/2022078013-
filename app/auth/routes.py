@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db
 from app.auth import bp
-from app.models import User
+from app.models import User, Game, GameParticipant
 from app.auth.forms import LoginForm, RegistrationForm, FindUsernameForm, FindPasswordForm, UpdateProfileForm
 import secrets
 import string
@@ -89,4 +89,19 @@ def profile():
             return redirect(url_for('auth.profile'))
         else:
             flash('현재 비밀번호가 올바르지 않습니다.')
-    return render_template('auth/profile.html', title='프로필 수정', form=form) 
+    return render_template('auth/profile.html', title='프로필 수정', form=form)
+
+@bp.route('/mypage')
+@login_required
+def mypage():
+    # 내가 생성한 경기 목록
+    created_games = Game.query.filter_by(creator_id=current_user.id).all()
+    
+    # 내가 신청한 경기 목록
+    participated_games = Game.query.join(GameParticipant).filter(
+        GameParticipant.user_id == current_user.id
+    ).all()
+    
+    return render_template('auth/mypage.html', 
+                         created_games=created_games,
+                         participated_games=participated_games) 

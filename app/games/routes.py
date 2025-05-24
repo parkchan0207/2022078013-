@@ -76,4 +76,19 @@ def delete_court(id):
     db.session.delete(court)
     db.session.commit()
     flash('경기장이 삭제되었습니다.')
-    return redirect(url_for('main.index')) 
+    return redirect(url_for('main.index'))
+
+@bp.route('/games/<int:id>/cancel', methods=['POST'])
+@login_required
+def cancel_participation(id):
+    game = Game.query.get_or_404(id)
+    participant = GameParticipant.query.filter_by(game_id=id, user_id=current_user.id).first()
+    
+    if not participant:
+        flash('해당 경기에 참가하지 않았습니다.', 'error')
+        return redirect(url_for('auth.mypage'))
+    
+    db.session.delete(participant)
+    db.session.commit()
+    flash('경기 참가가 취소되었습니다.')
+    return redirect(url_for('auth.mypage')) 
