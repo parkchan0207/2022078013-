@@ -22,7 +22,7 @@
                     </div>
                     <p class="card-text">
                         <strong>위치:</strong> {{ court.location }}<br>
-                        <strong>운영시간:</strong> {{ court.operating_hours }}
+                        <strong>운영시간:</strong> {{ court.opening_time.strftime('%H:%M') }} - {{ court.closing_time.strftime('%H:%M') }}
                     </p>
                     
                     <h5 class="mt-4">시설 정보</h5>
